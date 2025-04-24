@@ -5,8 +5,8 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-# --- 1. Environment Setup ---
-load_dotenv()  # Load .env file
+load_dotenv()
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 # Debug: Uncomment to verify (check terminal)
 # print("Current directory:", os.getcwd())
