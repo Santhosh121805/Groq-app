@@ -1,13 +1,10 @@
 import streamlit as st
-st.write("🔄 Debug: App started successfully")  # Should appear immediately
-import streamlit as st
 import os
 from dotenv import load_dotenv
-from openai import OpenAI
+import openai
 
-load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-
+# --- 1. Environment Setup ---
+load_dotenv()  # Load .env file
 
 # Debug: Uncomment to verify (check terminal)
 # print("Current directory:", os.getcwd())
@@ -19,7 +16,7 @@ api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
     st.error("""
     ❌ Key missing! Verify:
-    1. .env exists in same folder as this script
+    1. .env exists in the same folder as this script
     2. Contains: OPENAI_API_KEY=sk-...
     3. No typos or spaces
     """)
@@ -27,9 +24,10 @@ if not api_key:
 
 # --- 3. Initialize OpenAI ---
 try:
-    client = OpenAI(api_key=api_key)
-    # Quick connection test
-    client.models.list()
+    # Set the API key
+    openai.api_key = api_key
+    # Quick connection test (listing available models)
+    models = openai.Model.list()
     st.success("✅ OpenAI Connected!")
 except Exception as e:
     st.error(f"""
@@ -48,5 +46,5 @@ st.write("API key loaded successfully")
 
 # Add your features here
 if st.button("Test Connection"):
-    models = client.models.list()
-    st.write(f"Available models: {len(models.data)}")
+    models = openai.Model.list()  # Ensure the models are listed correctly
+    st.write(f"Available models: {len(models['data'])}")
