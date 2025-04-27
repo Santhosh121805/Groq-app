@@ -6,7 +6,9 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key="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 
+")
+
 
 # Debug: Uncomment to verify (check terminal)
 # print("Current directory:", os.getcwd())
